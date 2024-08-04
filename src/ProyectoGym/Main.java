@@ -47,7 +47,7 @@ public class Main {
                                         break;
                                     case 2:
                                         // Llamar al método para modificar reservación
-                                        String nombreModificar = JOptionPane.showInputDialog("Ingrese el nombre del cliente a modificar:");
+                                        String nombreModificar = JOptionPane.showInputDialog("Ingrese su nombre:");
                                         String fechaReservacionModificar = JOptionPane.showInputDialog("Ingrese la nueva fecha de la reservación:");
                                         String horaReservacionModificar = JOptionPane.showInputDialog("Ingrese la nueva hora de la reservación:");
                                         Reservacion reservacionModificar = new Reservacion(nombreModificar, fechaReservacionModificar, horaReservacionModificar);
