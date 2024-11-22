@@ -1,7 +1,5 @@
 package ProyectoGym;
 
-import java.util.List;
-
 /**
  *
  * @author pchacon
@@ -10,12 +8,12 @@ public class ListaReservaciones {
 
     private NodoLDE inicio;
     private NodoLDE fin;
-
-    private List<Reservacion> reservaciones;
+    private int tamaño;
 
     public ListaReservaciones() {
         this.inicio = null;
         this.fin = null;
+        this.tamaño = 0;
     }
 
     public void agregarReservacion(Reservacion reservacion) {
@@ -100,4 +98,59 @@ public class ListaReservaciones {
         return reservaciones;
     }
 
+    public static boolean validarFecha(String fecha) {
+        String[] partes = fecha.split("/");
+        int año = Integer.parseInt(partes[0]);
+        int mes = Integer.parseInt(partes[1]);
+        int dia = Integer.parseInt(partes[2]);
+
+        if (año != 2024 || mes != 8) {
+            return false;
+        }
+
+        int diaActual = getDiaActual();
+        int limite = diaActual + 7;
+
+        if (dia < diaActual || dia > limite) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean validarHora(String hora) {
+        String[] partes = hora.split(" ");
+        String horaNumerica = partes[0];
+        String ampm = partes[1];
+
+        if (!(ampm.equalsIgnoreCase("am") || ampm.equalsIgnoreCase("pm"))) {
+            return false;
+        }
+
+        String[] horaMinuto = horaNumerica.split(":");
+        int horaInt = Integer.parseInt(horaMinuto[0]);
+        int minutoInt = Integer.parseInt(horaMinuto[1]);
+
+        if (ampm.equalsIgnoreCase("am")) {
+            if (horaInt < 5 || horaInt > 11) {
+                return false;
+            }
+        } else {
+            if (horaInt < 12 || horaInt > 9) {
+                return false;
+            }
+        }
+
+        if (minutoInt < 0 || minutoInt > 59) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static int getDiaActual() {
+        // Implementar lógica para obtener el día actual
+        // Por ejemplo, utilizando la clase Date
+        return 1; // Devuelve el día actual
+    }
 }

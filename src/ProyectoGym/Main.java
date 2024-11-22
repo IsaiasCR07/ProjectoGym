@@ -1,11 +1,14 @@
 package ProyectoGym;
 
 import javax.swing.JOptionPane;
+import ProyectoGym.ListaReservaciones;
+import static ProyectoGym.ListaReservaciones.validarFecha;
+import static ProyectoGym.ListaReservaciones.validarHora;
 
 public class Main {
 
     public static void main(String[] args) {
-        
+
         // TODO code application logic here
         UsuarioPila m = new UsuarioPila();
         ListaReservaciones reservaciones = new ListaReservaciones();
@@ -42,14 +45,25 @@ public class Main {
                                         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
                                         String fechaReservacion = JOptionPane.showInputDialog("Ingrese la fecha de la reservación:");
                                         String horaReservacion = JOptionPane.showInputDialog("Ingrese la hora de la reservación:");
+                                        while (!validarFecha(fechaReservacion)) {
+                                            fechaReservacion = JOptionPane.showInputDialog("La fecha ingresada no es válida. Ingrese una fecha entre hoy y 7 días a futuro (dd/MM/yyyy):");
+                                        }
+                                        while (!validarHora(horaReservacion)) {
+                                            horaReservacion = JOptionPane.showInputDialog("La hora ingresada no es válida. Ingrese una hora entre 05:00 y 22:00 (HH:mm):");
+                                        }
                                         Reservacion reservacion = new Reservacion(nombre, fechaReservacion, horaReservacion);
                                         reservaciones.agregarReservacion(reservacion);
                                         break;
                                     case 2:
-                                        // Llamar al método para modificar reservación
                                         String nombreModificar = JOptionPane.showInputDialog("Ingrese su nombre:");
-                                        String fechaReservacionModificar = JOptionPane.showInputDialog("Ingrese la nueva fecha de la reservación:");
-                                        String horaReservacionModificar = JOptionPane.showInputDialog("Ingrese la nueva hora de la reservación:");
+                                        String fechaReservacionModificar = JOptionPane.showInputDialog("Ingrese la nueva fecha de la reservación (dd/MM/yyyy):");
+                                        while (!validarFecha(fechaReservacionModificar)) {
+                                            fechaReservacionModificar = JOptionPane.showInputDialog("La fecha ingresada no es válida. Ingrese una fecha entre hoy y 7 días a futuro (dd/MM/yyyy):");
+                                        }
+                                        String horaReservacionModificar = JOptionPane.showInputDialog("Ingrese la nueva hora de la reservación (HH:mm):");
+                                        while (!validarHora(horaReservacionModificar)) {
+                                            horaReservacionModificar = JOptionPane.showInputDialog("La hora ingresada no es válida. Ingrese una hora entre 05:00 y 22:00 (HH:mm):");
+                                        }
                                         Reservacion reservacionModificar = new Reservacion(nombreModificar, fechaReservacionModificar, horaReservacionModificar);
                                         reservaciones.modificarReservacion(nombreModificar, reservacionModificar);
                                         break;
@@ -82,7 +96,7 @@ public class Main {
                                     + "Nombre: " + usuario.getNombre() + "\n"
                                     + "Apellidos: " + usuario.getApellido() + "\n"
                                     + "Edad: " + usuario.getEdad() + "\n"
-                                    + "Peso: " + usuario.getPeso()+ " kg\n"
+                                    + "Peso: " + usuario.getPeso() + " kg\n"
                                     + "Edad: " + usuario.getEdad() + "\n"
                                     + "Login: " + usuario.getLogin());
                         } else {
